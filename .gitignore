@@ -21,3 +21,10 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+*.lock
+*.gdb/
+*.mdb
+*.sde
+.qgis-cache/
+*.tmp
+__pycache__/
