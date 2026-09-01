@@ -633,7 +633,7 @@ Karlsruhe.gdb
     ├── Ausstattung → Wartung
     ├── Ausstattung → Wartungsvertrag
     └── Vertragspartner → Wartungsvertrag
-```Haltestelle
+Haltestelle
 │
 │ 1:M
 ▼
@@ -642,9 +642,12 @@ Ausstattung
 ├──────── 1:M ────────> Wartung
 │
 └──────── 1:M ────────> Wartungsvertrag <──── 1:M ──── Vertragspartner
+```
+
+
 
 ---
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE). 
