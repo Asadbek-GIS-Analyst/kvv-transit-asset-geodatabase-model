@@ -1,5 +1,8 @@
 # kvv-transit-asset-geodatabase-model
-Geodatabase data model &amp; cartographic analysis for KVV (Karlsruhe) transit stop equipment, maintenance, and service contracts — built with ArcGIS Pro, Arcade attribute rules, and GTFS data
+
+Geodatabase data model & cartographic analysis for KVV (Karlsruhe) transit stop equipment, maintenance, and service contracts — built with ArcGIS Pro, Arcade attribute rules, and GTFS data
+
+> **Status:** 🚧 Work in progress — this repository is being built and committed incrementally as the project develops. Not yet feature-complete.
 
 ---
 
@@ -7,22 +10,34 @@ Geodatabase data model &amp; cartographic analysis for KVV (Karlsruhe) transit s
 
 | Dataset | Source | License | Notes |
 |---|---|---|---|
-| GTFS (stops) | [projekte.kvv-efa.de/GTFS/google_transit.zip](https://projekte.kvv-efa.de/GTFS/google_transit.zip) | CC0 | Updated almost daily (~7 MB). Only stops.txt is used. Alternative access: [kvv.de/fahrplan/fahrplaene/open-data.html](https://www.kvv.de/fahrplan/fahrplaene/open-data.html) |
-| Administrative boundary | [BKG WFS – VG25](https://sgx.geodatenzentrum.de/wfs_vg25) (via [gdz.bkg.bund.de](https://gdz.bkg.bund.de/index.php)) | Official German federal source | Regierungsbezirk layer, filtered to Karlsruhe |
+| GTFS (stops) | [projekte.kvv-efa.de/GTFS/google_transit.zip](https://projekte.kvv-efa.de/GTFS/google_transit.zip) | CC0 | Updated almost daily (~7 MB). Only `stops.txt` is used. Alternative access: [kvv.de/fahrplan/fahrplaene/open-data.html](https://www.kvv.de/fahrplan/fahrplaene/open-data.html) |
+| Administrative boundary | [BKG WFS – VG25](https://sgx.geodatenzentrum.de/wfs_vg25) (via [gdz.bkg.bund.de](https://gdz.bkg.bund.de/index.php)) | Official German federal source | `Regierungsbezirk` layer, filtered to Karlsruhe |
+| Tram / light rail geometry | [OpenStreetMap](https://www.openstreetmap.org) via [Overpass API](https://overpass-turbo.eu) | ODbL | GTFS feed has no `shapes.txt`, so line geometry was extracted separately via Overpass QL (see query below) |
 
-⚠️ Note: the GTFS link is a live feed and may change over time — if the direct download breaks, use the alternative KVV Open Data page above.
+⚠️ **Note:** the GTFS link is a live feed and may change over time — if the direct download breaks, use the alternative KVV Open Data page above.
+
+**Overpass QL query used** (also saved as [`scripts/tram_light_rail_query.overpassql`](scripts/tram_light_rail_query.overpassql)):
+
+```overpassql
+[out:json][timeout:60];
+(
+  way["railway"="tram"](48.43,7.90,49.36,9.53);
+  way["railway"="light_rail"](48.43,7.90,49.36,9.53);
+);
+out geom;
+```
 
 ---
 
 ## Tech Stack
 
-- ArcGIS Pro — geodatabase design, geoprocessing, cartography
-- Arcade — Attribute Rules (Constraint / Calculation / Validation)
-- QGIS — WFS extraction for the administrative boundary
-- Python (pandas) — synthetic data generation for equipment/maintenance tables
+- **ArcGIS Pro** — geodatabase design, geoprocessing, cartography
+- **Arcade** — Attribute Rules (Constraint / Calculation / Validation)
+- **QGIS** — WFS extraction for the administrative boundary; QuickOSM for Overpass queries
+- **Python (arcpy)** — synthetic data generation for equipment/maintenance tables
+- **Overpass API** — tram/light rail line geometry from OpenStreetMap
 
 ---
-
 ## Workflow
 
 ### 1. Data acquisition
