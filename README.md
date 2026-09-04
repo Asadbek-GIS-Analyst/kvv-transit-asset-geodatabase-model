@@ -2,8 +2,6 @@
 
 Geodatabase data model & cartographic analysis for KVV (Karlsruhe) transit stop equipment, maintenance, and service contracts — built with ArcGIS Pro, Arcade attribute rules, and GTFS data
 
-> **Status:** 🚧 Work in progress — this repository is being built and committed incrementally as the project develops. Not yet feature-complete.
-
 ---
 
 ## Data Sources
